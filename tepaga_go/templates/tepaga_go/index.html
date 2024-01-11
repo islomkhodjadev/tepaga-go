@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+            
+            
+            <div class="tm-section-2">
+                <div class="container">
+                    <div class="row">
+                        
+                        <div class="col text-center">
+                            <h2 class="tm-section-title">{{ trip.name }}</h2>
+                            <p class="tm-color-white tm-section-subtitle">{{trip.price}}</p>
+                            <a href="{% url "detail" pk=trip.pk type="trip" %}" class="tm-color-white tm-btn-white-bordered">Borish</a>
+                        </div>                
+                    </div>
+                </div>        
+            </div>
+            
+            <div class="tm-section tm-position-relative">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="tm-section-down-arrow">
+                    <polygon fill="#1966f6" points="0,0  100,0  50,60"></polygon>                   
+                </svg> 
+                <div class="container tm-pt-5 tm-pb-4">
+                    <div class="row text-center">
+                        {% for adv in advantages %}
+                        <article class="col-sm-12 col-md-4 col-lg-4 col-xl-4 tm-article">                            
+                            <i class="fa tm-fa-6x fa-legal tm-color-primary tm-margin-b-20"></i>
+                            <h3 class="tm-color-primary tm-article-title-1">{{ adv.name }}</h3>
+                            <p>{{ adv.content }}</p>
+                            
+                        </article>
+                        {% endfor %}
+                    </div>        
+                </div>
+            </div>
+            
+            <div class="tm-section tm-section-pad tm-bg-gray" id="tm-section-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="tm-article-carousel">  
+                                {% for port in portfolio %}
+                                    <article class="tm-bg-white mr-2 tm-carousel-item">
+                                        <img src="{{port.img.url}}" alt="Image" class="img-fluid">
+                                        <div class="tm-article-pad">
+                                            <header><h3 class="text-uppercase tm-article-title-2">{{ port.name }}</h3></header>
+                                            <p>{{ port.content }}</p>
+                                            <a href="{% url "detail" pk=port.pk type="portfolio" %}" class="text-uppercase btn-primary tm-btn-primary">Get More Info.</a>
+                                        </div>                                
+                                    </article>
+                                {% endfor %}
+                            </div>    
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="tm-bg-video">
+                <div class="overlay">
+                    <i class="fa fa-5x fa-play-circle tm-btn-play"></i>
+                    <i class="fa fa-5x fa-pause-circle tm-btn-pause"></i>
+                </div>
+                <video controls loop class="tmVideo">
+                    <source src="{{video.url}}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="tm-section tm-section-pad tm-bg-img" id="tm-section-5">                                                        
+                    <div class="container ie-h-align-center-fix">
+                        <div class="row tm-flex-align-center">
+                            <div class="col-xs-12 col-md-12 col-lg-3 col-xl-3 tm-media-title-container">
+                                <h2 class="text-uppercase tm-section-title-2">Maqolalar</h2>
+                                <h3 class="tm-color-primary tm-font-semibold tm-section-subtitle-2">Tepaga Go</h3>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <div class="tm-article-carousel">  
+                                    {% for blog in blogs %}
+                                        <article class="tm-bg-white mr-2 tm-carousel-item">
+                                            <img src="{{blog.img.url}}" alt="Image" class="img-fluid">
+                                            <div class="tm-article-pad">
+                                                <header><h3 class="text-uppercase tm-article-title-2">{{ blog.name }}</h3></header>
+                                                <p>{{ blog.content }}</p>
+                                                <a href="{% url "detail" pk=blog.pk type="blog" %}" class="text-uppercase btn-primary tm-btn-primary">To'liq</a>
+                                            </div>                                
+                                        </article>
+                                    {% endfor %}
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+            
+            <div class="tm-section tm-section-pad tm-bg-img tm-position-relative" id="tm-section-6">
+                <div class="container ie-h-align-center-fix">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-7">
+                            <iframe id="google-map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2836.2221158928705!2d69.20400375182557!3d41.27582263835847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sru!2s!4v1704874225321!5m2!1sru!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>      
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 mt-3 mt-md-0">
+                            <div class="tm-bg-white tm-p-4">
+                                <form method="post" class="contact-form">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="{{ form.name.id_for_label }}">Ism: </label>
+                                        {{ form.name }}
+                                        {% if form.name.errors %}
+                                            <div class="error">{{ form.name.errors.as_text }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="{{ form.phone.id_for_label }}">Telefon Raqam: </label>
+                                        {{ form.phone }}
+                                        {% if form.phone.errors %}
+                                            <div class="error">{{ form.phone.errors.as_text }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="{{ form.content.id_for_label }}">Matni: </label>
+                                        {{ form.content }}
+                                        {% if form.content.errors %}
+                                            <div class="error">{{ form.content.errors.as_text }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary tm-btn-primary">Yozilish</button>
+                                </form>
+                            </div>                            
+                        </div>
+                    </div>        
+                </div>
+            </div>
+            
+            {% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-xs-12 col-md-12 col-lg-9 col-xl-9 mt-0 mt-sm-3">
+    <div class="ml-auto tm-bg-white-shadow tm-pad tm-media-container">
+        <article class="tm-bg-white mr-2 tm-carousel-item">
+            <img src="{{content.img.url}}" alt="Image" class="img-fluid">
+            <div class="tm-article-pad">
+                <header><h3 class="text-uppercase tm-article-title-2">{{ content.name }}</h3></header>
+                <p>{{ content.content }}</p>
+                
+            </div>                                
+        </article>
+    </div>                            
+</div>
+
+<div class="tm-section tm-section-pad tm-bg-img tm-position-relative" id="tm-section-6">
+    <div class="container ie-h-align-center-fix">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-7">
+                <iframe id="google-map" src="{{content.location}}" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>      
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 mt-3 mt-md-0">
+                <div class="tm-bg-white tm-p-4">
+                    <form method="post" class="contact-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.name.id_for_label }}">Ism: </label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="error">{{ form.name.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.phone.id_for_label }}">Telefon Raqam: </label>
+                            {{ form.phone }}
+                            {% if form.phone.errors %}
+                                <div class="error">{{ form.phone.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.content.id_for_label }}">Matni: </label>
+                            {{ form.content }}
+                            {% if form.content.errors %}
+                                <div class="error">{{ form.content.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary tm-btn-primary">Yozilish</button>
+                    </form>
+                </div>                            
+            </div>
+        </div>        
+    </div>
+</div>
+
+
+
+{% endblock %}
